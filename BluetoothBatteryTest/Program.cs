@@ -192,12 +192,12 @@ namespace BluetoothBatteryTest
 
         static void Main(string[] args)
         {
-            getDevInfo(Guid.Parse(UUID1));
-            getDevInfo(Guid.Parse(UUID2));
-            getDevInfo(Guid.Parse(UUID3));
+            GetDevInfo(Guid.Parse(UUID1));
+            GetDevInfo(Guid.Parse(UUID2));
+            GetDevInfo(Guid.Parse(UUID3));
         }
 
-        static void getDevInfo(Guid guid)
+        static void GetDevInfo(Guid guid)
         {
             IntPtr hdi = SetupAPI.SetupDiGetClassDevsW(ref guid, null, IntPtr.Zero, SetupAPI.DIGCF_PRESENT | SetupAPI.DIGCF_DEVINTERFACE);
             Console.WriteLine(hdi);
@@ -214,12 +214,12 @@ namespace BluetoothBatteryTest
                 UInt32 nRequiredSize = 0;
                 SetupAPI.SetupDiGetDeviceInterfaceDetailW(hdi, ref did, ref didd, 256, ref nRequiredSize, ref dd);
                 Console.WriteLine(didd.DevicePath);
-                communication(didd.DevicePath);
+                Communication(didd.DevicePath);
             }
             Console.WriteLine("\n\n");
         }
 
-        static void communication(string path)
+        static void Communication(string path)
         {
             IntPtr hDevice = Kernel32.CreateFileW(path, FileAccess.Read, FileShare.ReadWrite, IntPtr.Zero, FileMode.Open, 0, IntPtr.Zero);
             UInt16 servicesBufferCount = 0;
